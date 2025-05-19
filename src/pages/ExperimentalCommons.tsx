@@ -37,59 +37,59 @@ const ExperimentalCommons = () => {
     <div className="min-h-screen cosmic-gradient">
       <div className="fractal-pattern min-h-screen flex flex-col">
         <Header />
-        <main className="flex-grow container py-12">
+        <main className="flex-grow container py-8 md:py-12 px-4 md:px-6">
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4 glow">
+            <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 glow">
               Experimental Commons
             </h1>
-            <p className="text-xl text-muted-foreground max-w-4xl">
+            <p className="text-base md:text-xl text-muted-foreground max-w-4xl">
               Share lab reports, raw data, videos, and replication instructions.
               Build upon the work of others and contribute to open scientific
               discovery.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-card/50 backdrop-blur p-6 rounded-lg border border-border">
-              <FlaskConical className="w-10 h-10 text-primary mb-4" />
-              <h3 className="text-xl font-bold mb-2">Upload Experiments</h3>
-              <p className="text-muted-foreground">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
+            <div className="bg-card/50 backdrop-blur p-4 md:p-6 rounded-lg border border-border">
+              <FlaskConical className="w-8 h-8 md:w-10 md:h-10 text-primary mb-3 md:mb-4" />
+              <h3 className="text-lg md:text-xl font-bold mb-2">Upload Experiments</h3>
+              <p className="text-sm md:text-base text-muted-foreground">
                 Share your experimental data, methodologies, and results with the
                 scientific community.
               </p>
             </div>
-            <div className="bg-card/50 backdrop-blur p-6 rounded-lg border border-border">
-              <FileText className="w-10 h-10 text-secondary mb-4" />
-              <h3 className="text-xl font-bold mb-2">Document Methods</h3>
-              <p className="text-muted-foreground">
+            <div className="bg-card/50 backdrop-blur p-4 md:p-6 rounded-lg border border-border">
+              <FileText className="w-8 h-8 md:w-10 md:h-10 text-secondary mb-3 md:mb-4" />
+              <h3 className="text-lg md:text-xl font-bold mb-2">Document Methods</h3>
+              <p className="text-sm md:text-base text-muted-foreground">
                 Create detailed step-by-step guides for others to replicate your
                 experimental procedures.
               </p>
             </div>
-            <div className="bg-card/50 backdrop-blur p-6 rounded-lg border border-border">
-              <Share2 className="w-10 h-10 text-accent mb-4" />
-              <h3 className="text-xl font-bold mb-2">Track Replications</h3>
-              <p className="text-muted-foreground">
+            <div className="bg-card/50 backdrop-blur p-4 md:p-6 rounded-lg border border-border">
+              <Share2 className="w-8 h-8 md:w-10 md:h-10 text-accent mb-3 md:mb-4" />
+              <h3 className="text-lg md:text-xl font-bold mb-2">Track Replications</h3>
+              <p className="text-sm md:text-base text-muted-foreground">
                 Monitor who is replicating your experiments and the results they
                 are achieving.
               </p>
             </div>
           </div>
 
-          <div className="mb-8 flex justify-between items-center">
-            <h2 className="text-2xl font-bold">Recent Experiments</h2>
-            <div className="flex gap-3">
+          <div className="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <h2 className="text-xl md:text-2xl font-bold">Recent Experiments</h2>
+            <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-3">
               <Input 
-                className="w-64" 
+                className="w-full sm:w-64" 
                 placeholder="Search experiments..." 
               />
-              <Button>Upload New</Button>
+              <Button className="w-full sm:w-auto">Upload New</Button>
             </div>
           </div>
 
           <Tabs defaultValue="all">
-            <div className="mb-6">
-              <TabsList>
+            <div className="mb-6 overflow-x-auto">
+              <TabsList className="inline-flex min-w-max">
                 <TabsTrigger value="all">All Experiments</TabsTrigger>
                 <TabsTrigger value="featured">Featured</TabsTrigger>
                 <TabsTrigger value="replicated">Most Replicated</TabsTrigger>
@@ -101,9 +101,9 @@ const ExperimentalCommons = () => {
                 {experiments.map((experiment, index) => (
                   <Card key={index} className="bg-card/50 backdrop-blur">
                     <CardHeader className="pb-2">
-                      <div className="flex justify-between">
-                        <CardTitle>{experiment.title}</CardTitle>
-                        <span className="text-sm bg-primary/20 text-primary-foreground px-3 py-1 rounded-full">
+                      <div className="flex flex-col sm:flex-row justify-between gap-2">
+                        <CardTitle className="text-lg md:text-xl">{experiment.title}</CardTitle>
+                        <span className="text-xs sm:text-sm bg-primary/20 text-primary-foreground px-3 py-1 rounded-full w-max">
                           {experiment.status}
                         </span>
                       </div>
@@ -118,9 +118,9 @@ const ExperimentalCommons = () => {
                         ))}
                       </div>
                     </CardContent>
-                    <CardFooter className="flex gap-2">
-                      <Button variant="outline" size="sm">View Details</Button>
-                      <Button size="sm">Replicate</Button>
+                    <CardFooter className="flex flex-col sm:flex-row gap-2">
+                      <Button variant="outline" size="sm" className="w-full sm:w-auto">View Details</Button>
+                      <Button size="sm" className="w-full sm:w-auto">Replicate</Button>
                     </CardFooter>
                   </Card>
                 ))}

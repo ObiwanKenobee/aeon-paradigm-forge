@@ -99,23 +99,23 @@ const Index = () => {
         
         <main className="flex-grow">
           {/* Hero Section */}
-          <section className="py-24 relative overflow-hidden">
+          <section className="py-12 md:py-24 relative overflow-hidden px-4 md:px-6">
             <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
             <div className="container relative z-10">
               <div className="max-w-4xl mx-auto text-center">
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 glow">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 md:mb-6 glow">
                   Science Reimagined, <br />
                   <span className="text-primary">Collectively Evolved</span>
                 </h1>
-                <p className="text-xl md:text-2xl mb-10 text-muted-foreground leading-relaxed">
+                <p className="text-lg sm:text-xl md:text-2xl mb-6 md:mb-10 text-muted-foreground leading-relaxed">
                   A scientific metaplatform for decentralized, cross-disciplinary, 
                   and open-source research that reinvents science from the ground up.
                 </p>
-                <div className="flex flex-wrap gap-4 justify-center">
-                  <Button size="lg" asChild>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  <Button size="lg" asChild className="w-full sm:w-auto">
                     <Link to="/join">Join the Movement</Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild>
+                  <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
                     <Link to="/manifesto">Read Our Manifesto</Link>
                   </Button>
                 </div>
@@ -128,10 +128,10 @@ const Index = () => {
           </section>
 
           {/* Modules Grid */}
-          <section className="py-16 relative">
+          <section className="py-12 md:py-16 relative px-4 md:px-6">
             <div className="container">
-              <h2 className="text-3xl font-bold mb-12 text-center">Core Research Modules</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center">Core Research Modules</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {modules.map((module, index) => (
                   <ModuleCard
                     key={index}
@@ -148,10 +148,10 @@ const Index = () => {
           </section>
 
           {/* Theory Forge Demo */}
-          <section className="py-16 relative">
+          <section className="py-12 md:py-16 relative px-4 md:px-6">
             <div className="container">
-              <h2 className="text-3xl font-bold mb-4 text-center">Theory Forge</h2>
-              <p className="text-center mb-12 text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">Theory Forge</h2>
+              <p className="text-center mb-8 md:mb-12 text-muted-foreground max-w-2xl mx-auto">
                 Document and collaborate on theoretical frameworks with an advanced 
                 editor supporting markdown, LaTeX, and peer review.
               </p>
@@ -162,16 +162,16 @@ const Index = () => {
           </section>
 
           {/* Call to Action */}
-          <section className="py-24 relative overflow-hidden">
+          <section className="py-12 md:py-24 relative overflow-hidden px-4 md:px-6">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/10 pointer-events-none" />
             <div className="container">
               <div className="max-w-4xl mx-auto text-center">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Redefine Scientific Discovery?</h2>
-                <p className="text-xl mb-10 text-muted-foreground">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6">Ready to Redefine Scientific Discovery?</h2>
+                <p className="text-lg md:text-xl mb-6 md:mb-10 text-muted-foreground">
                   Join the growing community of researchers, scientists, and free thinkers 
                   pushing the boundaries of conventional science.
                 </p>
-                <Button size="lg" asChild>
+                <Button size="lg" asChild className="w-full sm:w-auto">
                   <Link to="/join">Get Started Now</Link>
                 </Button>
               </div>

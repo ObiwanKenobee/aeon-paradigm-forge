@@ -36,39 +36,39 @@ const ParadigmCouncil = () => {
     <div className="min-h-screen cosmic-gradient">
       <div className="fractal-pattern min-h-screen flex flex-col">
         <Header />
-        <main className="flex-grow container py-12">
+        <main className="flex-grow container py-8 md:py-12 px-4 md:px-6">
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4 glow">
+            <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 glow">
               Paradigm Council
             </h1>
-            <p className="text-xl text-muted-foreground max-w-4xl">
+            <p className="text-base md:text-xl text-muted-foreground max-w-4xl">
               Access ethics manifestos, charters, and community-chosen paradigm
               case studies. Shape the philosophical foundations of our scientific
               explorations.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-card/50 backdrop-blur p-6 rounded-lg border border-border">
-              <BookOpen className="w-10 h-10 text-primary mb-4" />
-              <h3 className="text-xl font-bold mb-2">Ethics & Philosophy</h3>
-              <p className="text-muted-foreground">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
+            <div className="bg-card/50 backdrop-blur p-4 md:p-6 rounded-lg border border-border">
+              <BookOpen className="w-8 h-8 md:w-10 md:h-10 text-primary mb-3 md:mb-4" />
+              <h3 className="text-lg md:text-xl font-bold mb-2">Ethics & Philosophy</h3>
+              <p className="text-sm md:text-base text-muted-foreground">
                 Explore foundational principles and ethical frameworks for
                 emerging scientific paradigms.
               </p>
             </div>
-            <div className="bg-card/50 backdrop-blur p-6 rounded-lg border border-border">
-              <FileText className="w-10 h-10 text-secondary mb-4" />
-              <h3 className="text-xl font-bold mb-2">Manifestos & Charters</h3>
-              <p className="text-muted-foreground">
+            <div className="bg-card/50 backdrop-blur p-4 md:p-6 rounded-lg border border-border">
+              <FileText className="w-8 h-8 md:w-10 md:h-10 text-secondary mb-3 md:mb-4" />
+              <h3 className="text-lg md:text-xl font-bold mb-2">Manifestos & Charters</h3>
+              <p className="text-sm md:text-base text-muted-foreground">
                 Read and contribute to documents that define our collective
                 vision for the future of science.
               </p>
             </div>
-            <div className="bg-card/50 backdrop-blur p-6 rounded-lg border border-border">
-              <Users className="w-10 h-10 text-accent mb-4" />
-              <h3 className="text-xl font-bold mb-2">Community Governance</h3>
-              <p className="text-muted-foreground">
+            <div className="bg-card/50 backdrop-blur p-4 md:p-6 rounded-lg border border-border">
+              <Users className="w-8 h-8 md:w-10 md:h-10 text-accent mb-3 md:mb-4" />
+              <h3 className="text-lg md:text-xl font-bold mb-2">Community Governance</h3>
+              <p className="text-sm md:text-base text-muted-foreground">
                 Participate in democratic decision-making processes that guide
                 our scientific community.
               </p>
@@ -76,23 +76,23 @@ const ParadigmCouncil = () => {
           </div>
 
           <Tabs defaultValue="manifestos">
-            <div className="mb-6 flex justify-between items-center">
-              <TabsList>
+            <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <TabsList className="overflow-x-auto min-w-0">
                 <TabsTrigger value="manifestos">Manifestos</TabsTrigger>
                 <TabsTrigger value="case-studies">Case Studies</TabsTrigger>
                 <TabsTrigger value="discussions">Discussions</TabsTrigger>
                 <TabsTrigger value="governance">Governance</TabsTrigger>
               </TabsList>
-              <Button>Submit Proposal</Button>
+              <Button className="w-full sm:w-auto">Submit Proposal</Button>
             </div>
             <TabsContent value="manifestos" className="mt-0">
               <div className="grid grid-cols-1 gap-4">
                 {manifestos.map((manifesto, index) => (
                   <Card key={index} className="bg-card/50 backdrop-blur">
                     <CardHeader>
-                      <div className="flex justify-between items-start">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                         <div>
-                          <CardTitle>{manifesto.title}</CardTitle>
+                          <CardTitle className="text-lg md:text-xl">{manifesto.title}</CardTitle>
                           <CardDescription>{manifesto.author} • {manifesto.date}</CardDescription>
                         </div>
                         <span className="bg-muted px-2 py-1 rounded-md text-xs">
@@ -101,11 +101,11 @@ const ParadigmCouncil = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">{manifesto.excerpt}</p>
+                      <p className="text-sm md:text-base text-muted-foreground">{manifesto.excerpt}</p>
                     </CardContent>
-                    <CardFooter className="flex gap-2">
-                      <Button variant="outline">Read Full Document</Button>
-                      <Button>Endorse</Button>
+                    <CardFooter className="flex flex-col sm:flex-row gap-2">
+                      <Button variant="outline" className="w-full sm:w-auto">Read Full Document</Button>
+                      <Button className="w-full sm:w-auto">Endorse</Button>
                     </CardFooter>
                   </Card>
                 ))}
@@ -132,11 +132,11 @@ const ParadigmCouncil = () => {
           </Tabs>
 
           <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-6">Featured Principles</h2>
-            <div className="bg-card/50 backdrop-blur p-6 rounded-lg border border-border">
+            <h2 className="text-xl md:text-2xl font-bold mb-6">Featured Principles</h2>
+            <div className="bg-card/50 backdrop-blur p-4 md:p-6 rounded-lg border border-border">
               <div className="mb-6 pb-6 border-b border-border">
-                <h3 className="text-xl font-bold mb-2">Open Access Principle</h3>
-                <p className="text-muted-foreground mb-4">
+                <h3 className="text-lg md:text-xl font-bold mb-2">Open Access Principle</h3>
+                <p className="text-sm md:text-base text-muted-foreground mb-4">
                   Scientific knowledge belongs to all of humanity. We commit to making
                   all research findings, methodologies, and data freely accessible to everyone,
                   regardless of institutional affiliation or financial resources.
@@ -152,8 +152,8 @@ const ParadigmCouncil = () => {
               </div>
               
               <div className="mb-6 pb-6 border-b border-border">
-                <h3 className="text-xl font-bold mb-2">Scientific Pluralism</h3>
-                <p className="text-muted-foreground mb-4">
+                <h3 className="text-lg md:text-xl font-bold mb-2">Scientific Pluralism</h3>
+                <p className="text-sm md:text-base text-muted-foreground mb-4">
                   Multiple valid frameworks can coexist in science. We embrace epistemological
                   diversity and recognize that different paradigms may offer complementary
                   insights into the nature of reality.
@@ -169,8 +169,8 @@ const ParadigmCouncil = () => {
               </div>
               
               <div>
-                <h3 className="text-xl font-bold mb-2">Conscious Ethics</h3>
-                <p className="text-muted-foreground mb-4">
+                <h3 className="text-lg md:text-xl font-bold mb-2">Conscious Ethics</h3>
+                <p className="text-sm md:text-base text-muted-foreground mb-4">
                   Scientific exploration must be guided by ethical principles that respect
                   all forms of consciousness and acknowledge the potential impact of our
                   research on both human and non-human beings.

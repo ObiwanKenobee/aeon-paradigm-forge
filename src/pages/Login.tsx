@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const Login = () => {
   return (
     <div className="min-h-screen cosmic-gradient flex items-center justify-center">
-      <div className="fractal-pattern min-h-screen w-full flex items-center justify-center">
+      <div className="fractal-pattern min-h-screen w-full flex items-center justify-center py-8 px-4">
         <div className="container max-w-md">
           <Link to="/" className="flex items-center justify-center mb-8 space-x-2">
             <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
@@ -52,7 +52,7 @@ const Login = () => {
                     <Input id="email" placeholder="name@example.com" type="email" />
                   </div>
                   <div className="space-y-2">
-                    <div className="flex justify-between">
+                    <div className="flex flex-wrap justify-between gap-1">
                       <Label htmlFor="password">Password</Label>
                       <Link to="/reset-password" className="text-xs text-muted-foreground hover:text-primary">
                         Forgot password?
@@ -84,7 +84,7 @@ const Login = () => {
                       </svg>
                     </div>
                     <h3 className="text-lg font-medium mb-2">Connect Wallet</h3>
-                    <p className="text-muted-foreground text-sm mb-4">
+                    <p className="text-sm text-muted-foreground mb-4">
                       Sign in with your Web3 wallet to access your account and
                       participate in grant funding.
                     </p>
