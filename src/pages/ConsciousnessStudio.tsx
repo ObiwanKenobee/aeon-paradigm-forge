@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Brain, Wave, Upload, Activity } from "lucide-react";
+import { Brain, Waves, Upload, Activity } from "lucide-react";
 
 const ConsciousnessStudio = () => {
   return (
@@ -34,7 +34,7 @@ const ConsciousnessStudio = () => {
               </p>
             </div>
             <div className="bg-card/50 backdrop-blur p-4 md:p-6 rounded-lg border border-border">
-              <Wave className="w-8 h-8 md:w-10 md:h-10 text-secondary mb-3 md:mb-4" />
+              <Waves className="w-8 h-8 md:w-10 md:h-10 text-secondary mb-3 md:mb-4" />
               <h3 className="text-lg md:text-xl font-bold mb-2">Global Meditation Events</h3>
               <p className="text-sm md:text-base text-muted-foreground">
                 Join synchronized meditation sessions with researchers worldwide to
