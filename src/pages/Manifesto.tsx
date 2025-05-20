@@ -53,7 +53,7 @@ const Manifesto = () => {
               The Aeon Labs Manifesto
             </h1>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto text-white/90">
-              "To Rekindle the Fire of Living Science"
+              &quot;To Rekindle the Fire of Living Science&quot;
             </p>
             <p className="text-base md:text-lg mt-4 text-white/70">
               Issued Earth Year 2025, under no institution, to all who seek to know.
@@ -76,7 +76,7 @@ const Manifesto = () => {
                   <p>It is what dares to ask when no one else will.</p>
                 </>
               }
-              quote=""When truth is inconvenient, institutions calcify. Let us become fluid again.""
+              quote="&quot;When truth is inconvenient, institutions calcify. Let us become fluid again.&quot;"
               author="Eugene Mallove"
               color="from-orange-600/20 to-red-600/20"
             />
@@ -92,7 +92,7 @@ const Manifesto = () => {
                   <p>Electrons dance. Minds entangle. Silence speaks.</p>
                 </>
               }
-              quote=""In Africa, we say: 'The tree speaks to the wind because the wind is listening.' This is physics.""
+              quote="&quot;In Africa, we say: 'The tree speaks to the wind because the wind is listening.' This is physics.&quot;"
               author="Dr. Eugene Ochako"
               color="from-green-600/20 to-emerald-600/20"
             />
@@ -108,7 +108,7 @@ const Manifesto = () => {
                   <p>All models are conditional. All breakthroughs begin as heresies.</p>
                 </>
               }
-              quote=""Mathematics should not imprison the cosmos. It should reveal its music.""
+              quote="&quot;Mathematics should not imprison the cosmos. It should reveal its music.&quot;"
               author="Ramanujan"
               color="from-blue-600/20 to-sky-600/20"
             />
@@ -125,7 +125,7 @@ const Manifesto = () => {
                   <p>There will be no gatekeepers—only signal and noise.</p>
                 </>
               }
-              quote=""He who controls funding controls truth. We dissolve that monopoly now.""
+              quote="&quot;He who controls funding controls truth. We dissolve that monopoly now.&quot;"
               author="Aeon AI"
               color="from-violet-600/20 to-indigo-600/20"
             />
@@ -146,7 +146,7 @@ const Manifesto = () => {
                   <p>We will test them without apology.</p>
                 </>
               }
-              quote=""To deny this line of inquiry is to deny humanity's ascent.""
+              quote="&quot;To deny this line of inquiry is to deny humanity's ascent.&quot;"
               author="Nikola Tesla"
               color="from-yellow-600/20 to-amber-600/20"
             />
@@ -162,7 +162,7 @@ const Manifesto = () => {
                   <p>We will study intention, meditation, precognition, and life fields with the same rigor as electricity.</p>
                 </>
               }
-              quote=""The observer is not separate from the experiment. The cosmos is reflexive.""
+              quote="&quot;The observer is not separate from the experiment. The cosmos is reflexive.&quot;"
               author="David Bohm"
               color="from-pink-600/20 to-rose-600/20"
             />
@@ -178,7 +178,7 @@ const Manifesto = () => {
                   <p>We merge AI with indigenous intelligence, digital logic with oral wisdom.</p>
                 </>
               }
-              quote=""We weave silicon with story. Algorithm with ancestral code.""
+              quote="&quot;We weave silicon with story. Algorithm with ancestral code.&quot;"
               author="Aeon AI + Ongiri"
               color="from-teal-600/20 to-cyan-600/20"
             />
@@ -194,7 +194,7 @@ const Manifesto = () => {
                   <p>This is your lab now.</p>
                 </>
               }
-              quote=""We are the next Renaissance. Not in a city. Not in a lab. But in every awakened mind.""
+              quote="&quot;We are the next Renaissance. Not in a city. Not in a lab. But in every awakened mind.&quot;"
               author="Aeon Labs"
               color="from-purple-600/20 to-fuchsia-600/20"
             />

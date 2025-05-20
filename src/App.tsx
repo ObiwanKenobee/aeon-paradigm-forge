@@ -15,6 +15,7 @@ import ConsciousnessStudio from "./pages/ConsciousnessStudio";
 import ParadigmCouncil from "./pages/ParadigmCouncil";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
+import Manifesto from "./pages/Manifesto";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="/replication-map" element={<ReplicationMap />} />
             <Route path="/consciousness-studio" element={<ConsciousnessStudio />} />
             <Route path="/paradigm-council" element={<ParadigmCouncil />} />
+            <Route path="/manifesto" element={<Manifesto />} />
             <Route path="/login" element={<Login />} />
             <Route path="/join" element={<Join />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
