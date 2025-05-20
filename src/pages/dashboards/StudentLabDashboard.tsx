@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useGeoAware, CONTINENT_HUBS } from '@/contexts/GeoAwareContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { GraduationCap, BookOpen, Flask, Users, Globe } from 'lucide-react';
+import { GraduationCap, BookOpen, Beaker, Users, Globe } from 'lucide-react';
 
 const StudentLabDashboard = () => {
   const { userMetadata, signOut } = useAuth();
@@ -31,7 +31,7 @@ const StudentLabDashboard = () => {
       {/* Main Content */}
       <main className="container py-8 px-4">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Welcome, {userMetadata?.name || 'Student'}</h2>
+          <h2 className="text-3xl font-bold mb-2">Welcome, {userMetadata?.role || 'Student'}</h2>
           <p className="text-muted-foreground">Your learning journey continues at the {regionHub}</p>
         </div>
         
@@ -61,7 +61,7 @@ const StudentLabDashboard = () => {
             <CardContent>
               <div className="flex items-center justify-between">
                 <div className="text-2xl font-bold">3</div>
-                <Flask className="h-6 w-6 text-indigo-500" />
+                <Beaker className="h-6 w-6 text-indigo-500" />
               </div>
             </CardContent>
           </Card>
@@ -115,7 +115,7 @@ const StudentLabDashboard = () => {
             <CardHeader className="py-3">
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                  <Flask className="h-5 w-5 text-indigo-500" />
+                  <Beaker className="h-5 w-5 text-indigo-500" />
                   <div>
                     <CardTitle className="text-base">Started Experiment: Neural Interface Simulation</CardTitle>
                     <CardDescription className="text-xs">Today at 10:15 AM</CardDescription>
