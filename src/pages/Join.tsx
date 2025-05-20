@@ -1,14 +1,46 @@
 
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CheckCircle, User, Microscope, ArrowRight } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Join = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [field, setField] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { signUp, user } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !email || !password) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await signUp(email, password);
+      // After successful signup, the user will be redirected to onboarding
+      // to select their role through the AuthContext useEffect
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen cosmic-gradient">
       <div className="fractal-pattern min-h-screen w-full flex items-center justify-center py-8 px-4">
@@ -101,26 +133,54 @@ const Join = () => {
                     </TabsList>
 
                     <TabsContent value="researcher" className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name</Label>
-                        <Input id="name" placeholder="Dr. Jane Smith" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address</Label>
-                        <Input id="email" type="email" placeholder="jane.smith@example.com" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="password">Password</Label>
-                        <Input id="password" type="password" placeholder="••••••••" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="field">Field of Research</Label>
-                        <Input id="field" placeholder="e.g., Quantum Physics, Consciousness Studies" />
-                      </div>
-                      <Button type="submit" className="w-full">
-                        Create Researcher Account
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
+                      <form onSubmit={handleSignUp} className="space-y-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Full Name</Label>
+                          <Input 
+                            id="name" 
+                            placeholder="Dr. Jane Smith" 
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            disabled={isSubmitting}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email Address</Label>
+                          <Input 
+                            id="email" 
+                            type="email" 
+                            placeholder="jane.smith@example.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            disabled={isSubmitting}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="password">Password</Label>
+                          <Input 
+                            id="password" 
+                            type="password" 
+                            placeholder="••••••••"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            disabled={isSubmitting}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="field">Field of Research</Label>
+                          <Input 
+                            id="field" 
+                            placeholder="e.g., Quantum Physics, Consciousness Studies"
+                            value={field}
+                            onChange={(e) => setField(e.target.value)}
+                            disabled={isSubmitting}
+                          />
+                        </div>
+                        <Button type="submit" className="w-full" disabled={isSubmitting}>
+                          {isSubmitting ? "Creating Account..." : "Create Researcher Account"}
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      </form>
                     </TabsContent>
 
                     <TabsContent value="lab" className="space-y-4">

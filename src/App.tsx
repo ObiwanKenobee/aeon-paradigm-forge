@@ -17,6 +17,10 @@ import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Manifesto from "./pages/Manifesto";
 import Pricing from "./pages/Pricing";
+import Dashboard from "./pages/Dashboard";
+import Onboarding from "./pages/Onboarding";
+import { AuthProvider } from "./contexts/AuthContext";
+import { GeoAwareProvider } from "./contexts/GeoAwareContext";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -29,21 +33,31 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/theory-forge" element={<TheoryForge />} />
-            <Route path="/experimental-commons" element={<ExperimentalCommons />} />
-            <Route path="/grant-pools" element={<GrantPools />} />
-            <Route path="/replication-map" element={<ReplicationMap />} />
-            <Route path="/consciousness-studio" element={<ConsciousnessStudio />} />
-            <Route path="/paradigm-council" element={<ParadigmCouncil />} />
-            <Route path="/manifesto" element={<Manifesto />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/join" element={<Join />} />
-            <Route path="/pricing" element={<Pricing />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AuthProvider>
+            <GeoAwareProvider>
+              <Routes>
+                {/* Public routes */}
+                <Route path="/" element={<Index />} />
+                <Route path="/theory-forge" element={<TheoryForge />} />
+                <Route path="/experimental-commons" element={<ExperimentalCommons />} />
+                <Route path="/grant-pools" element={<GrantPools />} />
+                <Route path="/replication-map" element={<ReplicationMap />} />
+                <Route path="/consciousness-studio" element={<ConsciousnessStudio />} />
+                <Route path="/paradigm-council" element={<ParadigmCouncil />} />
+                <Route path="/manifesto" element={<Manifesto />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/join" element={<Join />} />
+                <Route path="/pricing" element={<Pricing />} />
+                
+                {/* Protected routes */}
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/onboarding" element={<Onboarding />} />
+                
+                {/* Catch-all route */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </GeoAwareProvider>
+          </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

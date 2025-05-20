@@ -1,13 +1,54 @@
 
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "@/components/ui/use-toast";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { signIn, user } = useAuth();
+  const navigate = useNavigate();
+  
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
+
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    setIsSubmitting(true);
+    try {
+      await signIn(email, password);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleConnectWallet = () => {
+    toast({
+      title: "Web3 Integration Coming Soon",
+      description: "This feature will be available in future updates.",
+    });
+  };
+
   return (
     <div className="min-h-screen cosmic-gradient flex items-center justify-center">
       <div className="fractal-pattern min-h-screen w-full flex items-center justify-center py-8 px-4">
@@ -47,22 +88,38 @@ const Login = () => {
                   <TabsTrigger value="wallet">Web3 Wallet</TabsTrigger>
                 </TabsList>
                 <TabsContent value="email" className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" placeholder="name@example.com" type="email" />
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex flex-wrap justify-between gap-1">
-                      <Label htmlFor="password">Password</Label>
-                      <Link to="/reset-password" className="text-xs text-muted-foreground hover:text-primary">
-                        Forgot password?
-                      </Link>
+                  <form onSubmit={handleSignIn} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input 
+                        id="email" 
+                        placeholder="name@example.com" 
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        disabled={isSubmitting}
+                      />
                     </div>
-                    <Input id="password" placeholder="••••••••" type="password" />
-                  </div>
-                  <Button type="submit" className="w-full">
-                    Sign In
-                  </Button>
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap justify-between gap-1">
+                        <Label htmlFor="password">Password</Label>
+                        <Link to="/reset-password" className="text-xs text-muted-foreground hover:text-primary">
+                          Forgot password?
+                        </Link>
+                      </div>
+                      <Input 
+                        id="password" 
+                        placeholder="••••••••" 
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                      {isSubmitting ? "Signing In..." : "Sign In"}
+                    </Button>
+                  </form>
                 </TabsContent>
                 <TabsContent value="wallet" className="space-y-4">
                   <div className="p-6 text-center">
@@ -88,7 +145,12 @@ const Login = () => {
                       Sign in with your Web3 wallet to access your account and
                       participate in grant funding.
                     </p>
-                    <Button className="w-full">Connect Wallet</Button>
+                    <Button 
+                      className="w-full"
+                      onClick={handleConnectWallet}
+                    >
+                      Connect Wallet
+                    </Button>
                   </div>
                 </TabsContent>
               </Tabs>
