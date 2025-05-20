@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Separator } from "@/components/ui/separator";
+import { Twitter, Github, Mail, MessageSquare } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -43,10 +44,30 @@ const Footer = () => {
           <div>
             <h4 className="font-medium mb-4">Connect</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-foreground">Twitter</a></li>
-              <li><a href="#" className="hover:text-foreground">Discord</a></li>
-              <li><a href="#" className="hover:text-foreground">GitHub</a></li>
-              <li><a href="#" className="hover:text-foreground">Newsletter</a></li>
+              <li>
+                <a href="https://twitter.com/aeonlabs" className="hover:text-foreground flex items-center gap-2">
+                  <Twitter size={16} />
+                  <span>Twitter</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://discord.gg/aeonlabs" className="hover:text-foreground flex items-center gap-2">
+                  <MessageSquare size={16} />
+                  <span>Discord</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/aeon-labs" className="hover:text-foreground flex items-center gap-2">
+                  <Github size={16} />
+                  <span>GitHub</span>
+                </a>
+              </li>
+              <li>
+                <a href="#newsletter" className="hover:text-foreground flex items-center gap-2">
+                  <Mail size={16} />
+                  <span>Newsletter</span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>

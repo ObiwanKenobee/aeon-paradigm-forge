@@ -19,6 +19,9 @@ import Manifesto from "./pages/Manifesto";
 import Pricing from "./pages/Pricing";
 import Dashboard from "./pages/Dashboard";
 import Onboarding from "./pages/Onboarding";
+import About from "./pages/About";
+import Faq from "./pages/Faq";
+import Contact from "./pages/Contact";
 import { AuthProvider } from "./contexts/AuthContext";
 import { GeoAwareProvider } from "./contexts/GeoAwareContext";
 
@@ -48,6 +51,9 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/join" element={<Join />} />
                 <Route path="/pricing" element={<Pricing />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/faq" element={<Faq />} />
+                <Route path="/contact" element={<Contact />} />
                 
                 {/* Protected routes */}
                 <Route path="/dashboard" element={<Dashboard />} />
