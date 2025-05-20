@@ -16,6 +16,7 @@ import ParadigmCouncil from "./pages/ParadigmCouncil";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Manifesto from "./pages/Manifesto";
+import Pricing from "./pages/Pricing";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="/manifesto" element={<Manifesto />} />
             <Route path="/login" element={<Login />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/pricing" element={<Pricing />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
