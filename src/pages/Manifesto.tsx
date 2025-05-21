@@ -93,7 +93,7 @@ const Manifesto = () => {
                 </>
               }
               quote="&quot;In Africa, we say: 'The tree speaks to the wind because the wind is listening.' This is physics.&quot;"
-              author="Dr. Eugene Ochako"
+              author="Dr. Oduor Nyongesa"
               color="from-green-600/20 to-emerald-600/20"
             />
             
@@ -179,7 +179,7 @@ const Manifesto = () => {
                 </>
               }
               quote="&quot;We weave silicon with story. Algorithm with ancestral code.&quot;"
-              author="Aeon AI + Ongiri"
+              author="Aeon AI + Oduor"
               color="from-teal-600/20 to-cyan-600/20"
             />
             
