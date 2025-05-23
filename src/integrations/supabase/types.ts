@@ -312,6 +312,42 @@ export type Database = {
         }
         Relationships: []
       }
+      consciousness_studio: {
+        Row: {
+          content: string
+          created_at: string
+          duration: number | null
+          id: string
+          meditation_type: string | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          duration?: number | null
+          id?: string
+          meditation_type?: string | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          duration?: number | null
+          id?: string
+          meditation_type?: string | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       custom_metrics: {
         Row: {
           configuration: Json | null
@@ -810,6 +846,45 @@ export type Database = {
         }
         Relationships: []
       }
+      experimental_commons: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          methodology: string | null
+          results: string | null
+          status: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          methodology?: string | null
+          results?: string | null
+          status?: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          methodology?: string | null
+          results?: string | null
+          status?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       forum_posts: {
         Row: {
           author_id: string
@@ -872,6 +947,48 @@ export type Database = {
           status?: string | null
           title?: string
           updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      grant_pools: {
+        Row: {
+          amount: number
+          category: string | null
+          created_at: string
+          deadline: string | null
+          description: string
+          id: string
+          raised: number
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category?: string | null
+          created_at?: string
+          deadline?: string | null
+          description: string
+          id?: string
+          raised?: number
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string | null
+          created_at?: string
+          deadline?: string | null
+          description?: string
+          id?: string
+          raised?: number
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -1058,6 +1175,42 @@ export type Database = {
           title?: string
           updated_at?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      paradigm_council: {
+        Row: {
+          created_at: string
+          id: string
+          proposal: string
+          status: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+          votes: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          proposal: string
+          status?: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+          votes?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          proposal?: string
+          status?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+          votes?: number | null
         }
         Relationships: []
       }
@@ -1478,6 +1631,48 @@ export type Database = {
           region_name?: string
           risk_level?: string | null
           updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      replication_map: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          location: string | null
+          original_experiment_id: string | null
+          results: string | null
+          status: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          location?: string | null
+          original_experiment_id?: string | null
+          results?: string | null
+          status?: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          location?: string | null
+          original_experiment_id?: string | null
+          results?: string | null
+          status?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -2108,6 +2303,36 @@ export type Database = {
           status?: Database["public"]["Enums"]["task_status"] | null
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      theory_forge: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }

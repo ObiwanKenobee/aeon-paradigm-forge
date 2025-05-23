@@ -1,79 +1,119 @@
 
-import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { TheoryForgeEntry } from "@/services/api";
 
-const TheoryEditor = () => {
-  const [markdown, setMarkdown] = useState("# My Theory\n\nIntroduce your hypothesis here...\n\nFor mathematical expressions, use LaTeX syntax: $E = mc^2$\n\n## Methods\n\nDescribe your methods...\n\n## Conclusions\n\nState your conclusions...");
+interface TheoryEditorProps {
+  onSave: (theory: TheoryForgeEntry) => void;
+  initialTheory: TheoryForgeEntry;
+}
 
-  // This would be replaced with a real Markdown/LaTeX renderer
-  const renderPreview = () => {
-    return (
-      <div className="prose prose-invert max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: markdown
-          .replace(/# (.*?)\n/g, '<h1>$1</h1>')
-          .replace(/## (.*?)\n/g, '<h2>$1</h2>')
-          .replace(/\n\n/g, '<br><br>')
-          .replace(/\$(.*?)\$/g, '<code class="bg-muted p-1 rounded text-primary">$1</code>')
-        }} />
-      </div>
-    );
+const TheoryEditor = ({ onSave, initialTheory }: TheoryEditorProps) => {
+  const [theory, setTheory] = useState<TheoryForgeEntry>(initialTheory);
+  const [tagInput, setTagInput] = useState("");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setTheory({
+      ...theory,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleAddTag = () => {
+    if (tagInput.trim()) {
+      setTheory({
+        ...theory,
+        tags: [...(theory.tags || []), tagInput.trim()],
+      });
+      setTagInput("");
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => {
+    setTheory({
+      ...theory,
+      tags: (theory.tags || []).filter((tag) => tag !== tagToRemove),
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave(theory);
   };
 
   return (
-    <Card className="w-full border border-border bg-card/50 backdrop-blur">
-      <CardHeader>
-        <CardTitle>Theory Forge</CardTitle>
-        <CardDescription>
-          Document your theories, hypotheses and derivations with support for Markdown and LaTeX.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="mb-4 space-y-2">
-          <Input 
-            placeholder="Title your theory"
-            className="text-lg font-medium"
-            defaultValue="Quantum Coherence in Biological Systems"
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <Label htmlFor="title">Title</Label>
+        <Input
+          id="title"
+          name="title"
+          value={theory.title}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="content">Content</Label>
+        <Textarea
+          id="content"
+          name="content"
+          value={theory.content}
+          onChange={handleChange}
+          rows={10}
+          required
+          className="font-mono"
+        />
+        <p className="text-xs text-muted-foreground mt-1">
+          Supports Markdown and LaTeX syntax.
+        </p>
+      </div>
+
+      <div>
+        <Label htmlFor="tags">Tags</Label>
+        <div className="flex gap-2">
+          <Input
+            id="tags"
+            value={tagInput}
+            onChange={(e) => setTagInput(e.target.value)}
+            placeholder="Add a tag"
           />
-          
-          <div className="flex flex-wrap gap-2">
-            <Button variant="outline" size="sm">
-              #quantum-biology
-            </Button>
-            <Button variant="outline" size="sm">
-              #consciousness
-            </Button>
-            <Button variant="outline" size="sm" className="bg-primary/10">
-              + Add Tag
-            </Button>
-          </div>
+          <Button type="button" onClick={handleAddTag}>
+            Add
+          </Button>
         </div>
-        
-        <Tabs defaultValue="edit">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="edit">Edit</TabsTrigger>
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-          </TabsList>
-          <TabsContent value="edit" className="min-h-[300px]">
-            <Textarea
-              className="min-h-[300px] font-mono resize-none bg-muted/50"
-              value={markdown}
-              onChange={(e) => setMarkdown(e.target.value)}
-            />
-          </TabsContent>
-          <TabsContent value="preview" className="min-h-[300px] p-4 bg-muted/20 rounded-md overflow-auto">
-            {renderPreview()}
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">Save Draft</Button>
-        <Button>Submit to Community</Button>
-      </CardFooter>
-    </Card>
+
+        {theory.tags && theory.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {theory.tags.map((tag, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-1 bg-primary/20 px-2 py-1 rounded-md"
+              >
+                <span className="text-sm">{tag}</span>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveTag(tag)}
+                  className="text-xs hover:text-destructive"
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="flex justify-end">
+        <Button type="submit">Save Theory</Button>
+      </div>
+    </form>
   );
 };
 

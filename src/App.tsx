@@ -22,6 +22,7 @@ import Onboarding from "./pages/Onboarding";
 import About from "./pages/About";
 import Faq from "./pages/Faq";
 import Contact from "./pages/Contact";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./contexts/AuthContext";
 import { GeoAwareProvider } from "./contexts/GeoAwareContext";
 
@@ -56,8 +57,22 @@ const App = () => {
                 <Route path="/contact" element={<Contact />} />
                 
                 {/* Protected routes */}
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/onboarding" element={<Onboarding />} />
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/onboarding" 
+                  element={
+                    <ProtectedRoute>
+                      <Onboarding />
+                    </ProtectedRoute>
+                  } 
+                />
                 
                 {/* Catch-all route */}
                 <Route path="*" element={<NotFound />} />
