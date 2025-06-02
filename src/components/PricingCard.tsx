@@ -36,6 +36,14 @@ const PricingCard: React.FC<PricingCardProps> = ({
   color,
   onSelect
 }) => {
+  const formatPrice = (price: number) => {
+    if (price === 0) return '0';
+    return (price / 100).toLocaleString('en-NG', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    });
+  };
+
   return (
     <Card className={`bg-gradient-to-br ${color} border relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]`}>
       {popular && (
@@ -52,7 +60,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
         
         <div className="mt-4">
           <div className="flex items-baseline">
-            <span className="text-3xl font-bold">${price}</span>
+            <span className="text-3xl font-bold">₦{formatPrice(price)}</span>
             {price > 0 && (
               <span className="text-muted-foreground ml-2">/ {interval}</span>
             )}

@@ -8,10 +8,22 @@ import { Check, Info } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Toaster } from '@/components/ui/toaster';
 import { toast } from '@/components/ui/sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const Pricing = () => {
-  // Placeholder for Supabase user session
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  React.useEffect(() => {
+    // Get current user session
+    const getSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user?.email) {
+        setUserEmail(session.user.email);
+      }
+    };
+    getSession();
+  }, []);
 
   const pricingTiers = [
     {
@@ -28,7 +40,7 @@ const Pricing = () => {
       ],
       audience: 'For curious minds and students',
       buttonText: 'Start Free',
-      planId: '', // Free plan has no Paystack ID
+      planId: '',
       supabaseRole: 'free',
       popular: false,
       color: 'from-foreground/10 to-foreground/5'
@@ -37,7 +49,7 @@ const Pricing = () => {
       id: 'builder',
       name: 'Lab Builder',
       description: 'Full access to collaborative research tools',
-      price: 10,
+      price: 1000,
       interval: 'month',
       features: [
         'All Community features',
@@ -48,7 +60,7 @@ const Pricing = () => {
       ],
       audience: 'For researchers and science enthusiasts',
       buttonText: 'Become a Builder',
-      planId: 'lab_builder_plan', // Paystack Plan ID
+      planId: 'lab_builder_plan',
       supabaseRole: 'builder',
       popular: true,
       color: 'from-primary/20 to-primary/5'
@@ -57,7 +69,7 @@ const Pricing = () => {
       id: 'node',
       name: 'Innovation Node',
       description: 'Advanced research tools with dedicated support',
-      price: 99,
+      price: 9900,
       interval: 'month',
       features: [
         'All Builder features',
@@ -69,7 +81,7 @@ const Pricing = () => {
       ],
       audience: 'For labs, institutions, and serious researchers',
       buttonText: 'Become a Node',
-      planId: 'innovation_node', // Paystack Plan ID
+      planId: 'innovation_node',
       supabaseRole: 'node',
       popular: false,
       color: 'from-secondary/20 to-secondary/5'
@@ -78,7 +90,7 @@ const Pricing = () => {
       id: 'patron',
       name: 'Diaspora Ally',
       description: 'Support open science with a donation',
-      price: 10,
+      price: 1000,
       interval: 'month',
       customPrice: true,
       features: [
@@ -90,15 +102,21 @@ const Pricing = () => {
       ],
       audience: 'For supporters and patrons of open science',
       buttonText: 'Become an Ally',
-      planId: 'diaspora_ally', // Paystack Plan ID
+      planId: 'diaspora_ally',
       supabaseRole: 'patron',
       popular: false,
       color: 'from-accent/20 to-accent/5'
     }
   ];
 
-  const openPaystackCheckout = (planId: string, email: string = 'user@example.com') => {
-    // Placeholder for Paystack integration
+  const openPaystackCheckout = async (planId: string, amount: number) => {
+    if (!userEmail) {
+      toast.error("Please log in to subscribe", {
+        description: "You need to be logged in to purchase a subscription."
+      });
+      return;
+    }
+
     if (!planId) {
       // For free plan
       toast.success("You're now on the Community Explorer plan!", {
@@ -107,33 +125,83 @@ const Pricing = () => {
       return;
     }
 
-    // This would be replaced with actual Paystack integration when Supabase is connected
-    console.log(`Opening Paystack checkout for plan: ${planId} and email: ${email}`);
-    toast.info("Payment integration requires Supabase setup", {
-      description: "Please connect your app to Supabase to enable payments."
-    });
-    
-    // In a real implementation, we would use the Paystack JS SDK here
-    /*
-    const paystack = new PaystackPop();
-    paystack.newTransaction({
+    setIsLoading(true);
+
+    try {
+      // Create payment using our Edge Function
+      const { data, error } = await supabase.functions.invoke('create-payment', {
+        body: {
+          email: userEmail,
+          planId,
+          amount,
+          currency: 'NGN'
+        }
+      });
+
+      if (error) throw error;
+
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to create payment');
+      }
+
+      // Load Paystack inline script if not already loaded
+      if (!window.PaystackPop) {
+        const script = document.createElement('script');
+        script.src = 'https://js.paystack.co/v1/inline.js';
+        script.onload = () => initiatePayment(data.data);
+        document.head.appendChild(script);
+      } else {
+        initiatePayment(data.data);
+      }
+
+    } catch (error) {
+      console.error('Payment error:', error);
+      toast.error("Payment initialization failed", {
+        description: error.message || "Please try again later."
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const initiatePayment = (paymentData: any) => {
+    const handler = window.PaystackPop.setup({
       key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
-      email: email,
-      plan: planId,
-      onSuccess: function(transaction) {
-        // Call Supabase function to update user role
-        // supabase.rpc('update_user_plan', { plan_id: planId });
-        toast.success("Payment successful!", {
-          description: "Your account has been upgraded."
-        });
-      },
-      onCancel: function() {
-        toast.error("Payment cancelled", {
+      email: userEmail!,
+      amount: paymentData.amount,
+      currency: 'NGN',
+      ref: paymentData.reference,
+      onClose: function() {
+        toast.info("Payment cancelled", {
           description: "You can try again whenever you're ready."
         });
+      },
+      callback: async function(response: any) {
+        try {
+          // Verify payment with our Edge Function
+          const { data, error } = await supabase.functions.invoke('verify-payment', {
+            body: { reference: response.reference }
+          });
+
+          if (error) throw error;
+
+          if (data.success && data.data.status === 'success') {
+            toast.success("Payment successful!", {
+              description: "Your account has been upgraded. Welcome to your new plan!"
+            });
+          } else {
+            throw new Error('Payment verification failed');
+          }
+        } catch (error) {
+          console.error('Payment verification error:', error);
+          toast.error("Payment verification failed", {
+            description: "Please contact support if you were charged."
+          });
+        }
       }
     });
-    */
+
+    handler.openIframe();
   };
 
   return (
@@ -165,7 +233,7 @@ const Pricing = () => {
                   <PricingCard 
                     key={tier.id}
                     {...tier}
-                    onSelect={() => openPaystackCheckout(tier.planId, userEmail || undefined)}
+                    onSelect={() => openPaystackCheckout(tier.planId, tier.price)}
                   />
                 ))}
               </div>
@@ -222,7 +290,6 @@ const Pricing = () => {
                 </div>
               </div>
 
-              {/* FAQ */}
               <div className="mt-16 md:mt-24 max-w-4xl mx-auto">
                 <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
                 
@@ -258,7 +325,6 @@ const Pricing = () => {
             </div>
           </section>
 
-          {/* CTA */}
           <section className="py-12 md:py-16 relative overflow-hidden px-4 md:px-6">
             <div className="container">
               <div className="max-w-4xl mx-auto text-center bg-card border rounded-lg p-8 shadow-lg">
