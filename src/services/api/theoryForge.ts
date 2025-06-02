@@ -11,6 +11,13 @@ export interface TheoryForgeEntry {
   updated_at?: string;
 }
 
+export interface TheoryForgeCreateEntry {
+  title: string;
+  content: string;
+  tags?: string[];
+  user_id: string;
+}
+
 export const TheoryForgeAPI = {
   async getAll() {
     const { data, error } = await supabase
@@ -33,7 +40,7 @@ export const TheoryForgeAPI = {
     return data;
   },
 
-  async create(entry: TheoryForgeEntry) {
+  async create(entry: TheoryForgeCreateEntry) {
     const { data, error } = await supabase
       .from("theory_forge")
       .insert(entry)
@@ -43,7 +50,7 @@ export const TheoryForgeAPI = {
     return data[0];
   },
 
-  async update(id: string, entry: TheoryForgeEntry) {
+  async update(id: string, entry: Partial<TheoryForgeEntry>) {
     const { data, error } = await supabase
       .from("theory_forge")
       .update(entry)

@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ModuleCard from '@/components/ModuleCard';
-import TheoryEditor from '@/components/TheoryEditor';
+import TheoryForgeDemo from '@/components/TheoryForgeDemo';
 
 const Index = () => {
   const modules = [
@@ -71,7 +70,7 @@ const Index = () => {
       soon: true,
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-secondary">
-          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 0 0 1-2.5-2.5Z" />
           <path d="M10 2v20" />
         </svg>
       )
@@ -156,7 +155,7 @@ const Index = () => {
                 editor supporting markdown, LaTeX, and peer review.
               </p>
               <div className="max-w-4xl mx-auto">
-                <TheoryEditor />
+                <TheoryForgeDemo />
               </div>
             </div>
           </section>

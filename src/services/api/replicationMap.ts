@@ -15,6 +15,17 @@ export interface ReplicationMapEntry {
   updated_at?: string;
 }
 
+export interface ReplicationMapCreateEntry {
+  original_experiment_id?: string;
+  title: string;
+  description: string;
+  results?: string;
+  status?: string;
+  location?: string;
+  tags?: string[];
+  user_id: string;
+}
+
 export const ReplicationMapAPI = {
   async getAll() {
     const { data, error } = await supabase
@@ -37,7 +48,7 @@ export const ReplicationMapAPI = {
     return data;
   },
 
-  async create(entry: ReplicationMapEntry) {
+  async create(entry: ReplicationMapCreateEntry) {
     const { data, error } = await supabase
       .from("replication_map")
       .insert(entry)
@@ -47,7 +58,7 @@ export const ReplicationMapAPI = {
     return data[0];
   },
 
-  async update(id: string, entry: ReplicationMapEntry) {
+  async update(id: string, entry: Partial<ReplicationMapEntry>) {
     const { data, error } = await supabase
       .from("replication_map")
       .update(entry)

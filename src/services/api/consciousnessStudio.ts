@@ -13,6 +13,15 @@ export interface ConsciousnessStudioEntry {
   updated_at?: string;
 }
 
+export interface ConsciousnessStudioCreateEntry {
+  title: string;
+  content: string;
+  meditation_type?: string;
+  duration?: number;
+  tags?: string[];
+  user_id: string;
+}
+
 export const ConsciousnessStudioAPI = {
   async getAll() {
     const { data, error } = await supabase
@@ -35,7 +44,7 @@ export const ConsciousnessStudioAPI = {
     return data;
   },
 
-  async create(entry: ConsciousnessStudioEntry) {
+  async create(entry: ConsciousnessStudioCreateEntry) {
     const { data, error } = await supabase
       .from("consciousness_studio")
       .insert(entry)
@@ -45,7 +54,7 @@ export const ConsciousnessStudioAPI = {
     return data[0];
   },
 
-  async update(id: string, entry: ConsciousnessStudioEntry) {
+  async update(id: string, entry: Partial<ConsciousnessStudioEntry>) {
     const { data, error } = await supabase
       .from("consciousness_studio")
       .update(entry)

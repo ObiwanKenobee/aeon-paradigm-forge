@@ -15,6 +15,17 @@ export interface GrantPoolsEntry {
   updated_at?: string;
 }
 
+export interface GrantPoolsCreateEntry {
+  title: string;
+  description: string;
+  amount: number;
+  raised?: number;
+  deadline?: string;
+  category?: string;
+  tags?: string[];
+  user_id: string;
+}
+
 export const GrantPoolsAPI = {
   async getAll() {
     const { data, error } = await supabase
@@ -37,7 +48,7 @@ export const GrantPoolsAPI = {
     return data;
   },
 
-  async create(entry: GrantPoolsEntry) {
+  async create(entry: GrantPoolsCreateEntry) {
     const { data, error } = await supabase
       .from("grant_pools")
       .insert(entry)
@@ -47,7 +58,7 @@ export const GrantPoolsAPI = {
     return data[0];
   },
 
-  async update(id: string, entry: GrantPoolsEntry) {
+  async update(id: string, entry: Partial<GrantPoolsEntry>) {
     const { data, error } = await supabase
       .from("grant_pools")
       .update(entry)

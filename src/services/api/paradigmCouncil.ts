@@ -13,6 +13,15 @@ export interface ParadigmCouncilEntry {
   updated_at?: string;
 }
 
+export interface ParadigmCouncilCreateEntry {
+  title: string;
+  proposal: string;
+  status?: string;
+  votes?: number;
+  tags?: string[];
+  user_id: string;
+}
+
 export const ParadigmCouncilAPI = {
   async getAll() {
     const { data, error } = await supabase
@@ -35,7 +44,7 @@ export const ParadigmCouncilAPI = {
     return data;
   },
 
-  async create(entry: ParadigmCouncilEntry) {
+  async create(entry: ParadigmCouncilCreateEntry) {
     const { data, error } = await supabase
       .from("paradigm_council")
       .insert(entry)
@@ -45,7 +54,7 @@ export const ParadigmCouncilAPI = {
     return data[0];
   },
 
-  async update(id: string, entry: ParadigmCouncilEntry) {
+  async update(id: string, entry: Partial<ParadigmCouncilEntry>) {
     const { data, error } = await supabase
       .from("paradigm_council")
       .update(entry)

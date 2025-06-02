@@ -14,6 +14,16 @@ export interface ExperimentalCommonsEntry {
   updated_at?: string;
 }
 
+export interface ExperimentalCommonsCreateEntry {
+  title: string;
+  description: string;
+  methodology?: string;
+  results?: string;
+  status?: string;
+  tags?: string[];
+  user_id: string;
+}
+
 export const ExperimentalCommonsAPI = {
   async getAll() {
     const { data, error } = await supabase
@@ -36,7 +46,7 @@ export const ExperimentalCommonsAPI = {
     return data;
   },
 
-  async create(entry: ExperimentalCommonsEntry) {
+  async create(entry: ExperimentalCommonsCreateEntry) {
     const { data, error } = await supabase
       .from("experimental_commons")
       .insert(entry)
@@ -46,7 +56,7 @@ export const ExperimentalCommonsAPI = {
     return data[0];
   },
 
-  async update(id: string, entry: ExperimentalCommonsEntry) {
+  async update(id: string, entry: Partial<ExperimentalCommonsEntry>) {
     const { data, error } = await supabase
       .from("experimental_commons")
       .update(entry)
